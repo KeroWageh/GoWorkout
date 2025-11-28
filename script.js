@@ -1,3 +1,72 @@
+// Program details in the Training Programs page
+const programs = {
+    beginner: {
+        name: "Beginner Program:",
+        workouts: [
+            "Day 1: Full Body Basics",
+            "- Bodyweight Squats: 3x8",
+            "- Push-ups: 3x8",
+            "- Walking Lunges: 3x8",
+            "- Plank: 3x10s",
+            "",
+            "Day 2: Rest",
+            "",
+            "Day 3: Strength Foundations",
+            "- Glute Bridges: 3x8",
+            "- Wall Push-ups: 3x8",
+            "- Bird Dogs: 3x8",
+            "- Superman Holds: 3x10s"
+        ]
+    },
+    intermediate: {
+        name: "Intermediate Program:",
+        workouts: [
+            "Day 1: Upper Body",
+            "- Push-ups: 4x10",
+            "- Dumbbell Rows: 4x10",
+            "- Shoulder Press: 4x10",
+            "- Tricep Dips: 4x10",
+            "",
+            "Day 2: Lower Body",
+            "- Squats: 4x10",
+            "- Lunges: 4x10",
+            "- Calf Raises: 4x10",
+            "",
+            "Day 3: Cardio",
+            "- Planks: 4x30s",
+            "- Mountain Climbers: 4x30s",
+            "- Bicycle Crunches: 4x30s",
+            "",
+            "Day 4: Rest",
+            ""
+        ]
+    },
+    advanced: {
+        name: "Advanced Program:",
+        workouts: [
+            "Day 1: Push",
+            "- Bench Press: 5x12",
+            "- Military Press: 5x12",
+            "- Dips: 5x12",
+            "",
+            "Day 2: Pull",
+            "- Pull-ups: 5xMax",
+            "- Barbell Rows: 5x12",
+            "- Face Pulls: 5x12",
+            "",
+            "Day 3: Legs",
+            "- Squats: 5x12",
+            "- Deadlifts: 5x12",
+            "- Lunges: 5x12",
+            "",
+            "Day 4: Rest",
+            ""
+        ]
+    }
+};
+
+
+
 // Calculate daily calories using BMR and goal
 function calculateCalories() {
     const weight = parseFloat(document.getElementById('weight').value);
