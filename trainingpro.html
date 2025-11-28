@@ -18,7 +18,24 @@
     <main>
         <section class = "section">
             <h2>Training Programs</h2>
+            <div class = "programs-container">
+                <div class = "program-card" onclick=showProgram('beginner')>
+                    <h3>Beginner Program</h3>
+                    <p>Prefect for those just staring their fitness journy!</p>  
+            </div>
+            <div class="program-card" onclick="showProgram('intermediate')">
+                <h3>Intermediate Program</h3>
+                <p>For those with some training experience!</p>
+            </div>
+            <div class="program-card" onclick="showProgram('advanced')">
+                <h3>Advanced Program</h3>
+                <p>Challenging working for experienced athletes!</p>
+            </div>
+        </div>
+        <div id="result" class="result"></div>
+        </section>               
     </main>
+    <script src="script.js"></script>
     
 </body>
 </html>
