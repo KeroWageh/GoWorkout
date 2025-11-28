@@ -92,7 +92,7 @@ body {
 }
 
 .calculator-container,
-auth-container {
+.auth-container {
     max-width: 500px;
     margin: 2rem auto;
     padding: 2rem;
@@ -168,4 +168,22 @@ button {
 #profileContainer button {
     background-color: #000000;
     color: #ffffff;
+}
+
+
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        margin: 0.5rem;
+    }
 }
