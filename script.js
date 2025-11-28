@@ -150,3 +150,32 @@ function login(event) {
     alert('Login successful!');
     window.location.href = 'trainingprograms.html';
 }
+
+// Signup with first name, second name, username, password
+function signup(event) {
+    event.preventDefault();
+    const firstName = document.getElementById('firstName').value.trim();
+    const secondName = document.getElementById('secondName').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!firstName || !secondName || !username || !password) {
+        alert('Please fill in all fields!');
+        return;
+    }
+
+    // Enforce minimum password length of 6 characters
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters.');
+        return;
+    }
+
+    if (findUser(username)) {
+        alert('Username already exists! Please choose another username.');
+        return;
+    }
+
+    addUser({ firstName, secondName, username, password });
+    alert('Sign up successful! Please log in with your username.');
+    window.location.href = 'login.html';
+}
