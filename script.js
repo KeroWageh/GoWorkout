@@ -123,3 +123,30 @@ function calculateCalories() {
     result.style.display = 'block';
     result.innerHTML = `Your daily calorie target: ${Math.round(calories)} calories`;
 }
+
+// Login with username + password
+function login(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!username || !password) {
+        alert('Please fill in all fields!');
+        return;
+    }
+
+    const user = findUser(username);
+    if (!user) {
+        alert('No account found with that username! Please sign up first.');
+        return;
+    }
+
+    if (user.password !== password) {
+        alert('Invalid username or password.');
+        return;
+    }
+
+    setCurrentUser(username);
+    alert('Login successful!');
+    window.location.href = 'trainingprograms.html';
+}
