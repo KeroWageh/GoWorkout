@@ -144,3 +144,28 @@ button {
     border-radius: 5px;
     display: none;
 }
+
+.programs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.program-card {
+    background-color: #ffa31a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.program-card:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s;
+}
+
+#profileContainer button {
+    background-color: #000000;
+    color: #ffffff;
+}
