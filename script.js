@@ -65,7 +65,29 @@ const programs = {
     }
 };
 
+// how it will Show the program details
+function showProgram(level) {
+    const program = programs[level];
+    if (!program) return;
 
+    const result = document.getElementById('result');
+    if (!result) return;
+    result.style.display = 'block';
+    result.innerHTML = `
+        <h3>${program.name}</h3>
+        <pre>${program.workouts.join('\n')}</pre>
+    `;
+}
+
+// Navigate to programs if logged in, otherwise needs log in
+function goToPrograms() {
+    if (isLoggedIn()) {
+        window.location.href = 'trainingprograms.html';
+    } else {
+        alert('Please login to view programs!');
+        window.location.href = 'login.html';
+    }
+}
 
 // Calculate daily calories using BMR and goal
 function calculateCalories() {
