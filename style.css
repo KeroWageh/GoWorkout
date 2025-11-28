@@ -90,3 +90,82 @@ body {
     transform: translateY(-3px);
     transition: transform 0.3s;
 }
+
+.calculator-container,
+auth-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffa31a;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgb(0, 0, 0);
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+
+button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#calorieTitle {
+    text-align: center;
+}
+
+.section h2 {
+    color: #ffa31a;
+}
+
+.result {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #ffa31a;
+    border-radius: 5px;
+    display: none;
+}
+
+.programs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.program-card {
+    background-color: #ffa31a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.program-card:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s;
+}
+
+#profileContainer button {
+    background-color: #000000;
+    color: #ffffff;
+}
