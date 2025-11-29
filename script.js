@@ -206,3 +206,42 @@ function initProfile() {
 
     updateNav();
 }
+
+// Save the array of users to localStorage
+function saveUsers(users) {
+    localStorage.setItem('gw_users', JSON.stringify(users));
+}
+
+// Retrieve the array of users from localStorage
+function getUsers() {
+    const data = localStorage.getItem('gw_users');
+    return data ? JSON.parse(data) : [];
+}
+
+// Add a new user and save to the list
+function addUser(user) {
+    const users = getUsers();
+    users.push(user);
+    saveUsers(users);
+}
+
+// Find a user by username (returns user or null)
+function findUser(username) {
+    if (!username) return null;
+    return getUsers().find(u => u.username === username);
+}
+
+// Set the current logged in username
+function setCurrentUser(username) {
+    localStorage.setItem('gw_currentUser', username);
+}
+
+// Get the current logged in username (or null)
+function getCurrentUser() {
+    return localStorage.getItem('gw_currentUser');
+}
+
+// Check if the user is logged in or not
+function isLoggedIn() {
+    return !!getCurrentUser();
+}
