@@ -207,6 +207,12 @@ function initProfile() {
     updateNav();
 }
 
+// Clear current session and go home
+function logout() {
+    localStorage.removeItem('gw_currentUser');
+    window.location.href = 'index.html';
+}
+
 // Save the array of users to localStorage
 function saveUsers(users) {
     localStorage.setItem('gw_users', JSON.stringify(users));
