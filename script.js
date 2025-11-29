@@ -251,3 +251,26 @@ function getCurrentUser() {
 function isLoggedIn() {
     return !!getCurrentUser();
 }
+
+// Update header navigation (Home, Login, Profile)
+function updateNav() {
+    const nav = document.querySelector('.nav-links');
+    if (!nav) return;
+
+    if (isLoggedIn()) {
+        nav.innerHTML = `
+            <a href="index.html">Home</a>
+            <a href="profile.html" id="nav-profile">Profile</a>
+        `;
+    } else {
+        nav.innerHTML = `
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+        `;
+    }
+}
+
+// Initialize header navigation when the page is ready
+document.addEventListener('DOMContentLoaded', function () {
+    try { updateNav(); } catch (e) { /* ignore */ }
+});
