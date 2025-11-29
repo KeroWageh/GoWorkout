@@ -250,6 +250,7 @@ function getCurrentUser() {
 // Check if the user is logged in or not
 function isLoggedIn() {
     return !!getCurrentUser();
+<<<<<<< HEAD
 }
 
 // Update header navigation (Home, Login, Profile)
@@ -274,3 +275,6 @@ function updateNav() {
 document.addEventListener('DOMContentLoaded', function () {
     try { updateNav(); } catch (e) { /* ignore */ }
 });
+=======
+}
+>>>>>>> acc3e2fcb6d2cc08c9e28dae1a0f72e09ddade7e
