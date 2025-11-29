@@ -294,5 +294,6 @@ function initProfile() {
             <p><strong>Username:</strong> ${user.username}</p>
         `;
     }
-
+    
+    updateNav();
 }
