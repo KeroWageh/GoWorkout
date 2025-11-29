@@ -179,3 +179,29 @@ function signup(event) {
     alert('Sign up successful! Please log in with your username.');
     window.location.href = 'login.html';
 }
+
+// Initialize profile page with user details
+function initProfile() {
+    const current = getCurrentUser();
+    if (!current) {
+        alert('You must be logged in to view your profile!');
+        window.location.href = 'login.html';
+        return;
+    }
+    const user = findUser(current);
+    if (!user) {
+        alert('User not found!');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const info = document.getElementById('profileInfo');
+    if (info) {
+        info.innerHTML = `
+            <p><strong>First Name:</strong> ${user.firstName}</p>
+            <p><strong>Second Name:</strong> ${user.secondName}</p>
+            <p><strong>Username:</strong> ${user.username}</p>
+        `;
+    }
+
+}
