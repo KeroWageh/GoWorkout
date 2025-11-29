@@ -179,3 +179,98 @@ function signup(event) {
     alert('Sign up successful! Please log in with your username.');
     window.location.href = 'login.html';
 }
+
+// Initialize profile page with user details
+function initProfile() {
+    const current = getCurrentUser();
+    if (!current) {
+        alert('You must be logged in to view your profile!');
+        window.location.href = 'login.html';
+        return;
+    }
+    const user = findUser(current);
+    if (!user) {
+        alert('User not found!');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const info = document.getElementById('profileInfo');
+    if (info) {
+        info.innerHTML = `
+            <p><strong>First Name:</strong> ${user.firstName}</p>
+            <p><strong>Second Name:</strong> ${user.secondName}</p>
+            <p><strong>Username:</strong> ${user.username}</p>
+        `;
+    }
+
+    updateNav();
+}
+
+// Clear current session and go home
+function logout() {
+    localStorage.removeItem('gw_currentUser');
+    window.location.href = 'index.html';
+}
+
+// Save the array of users to localStorage
+function saveUsers(users) {
+    localStorage.setItem('gw_users', JSON.stringify(users));
+}
+
+// Retrieve the array of users from localStorage
+function getUsers() {
+    const data = localStorage.getItem('gw_users');
+    return data ? JSON.parse(data) : [];
+}
+
+// Add a new user and save to the list
+function addUser(user) {
+    const users = getUsers();
+    users.push(user);
+    saveUsers(users);
+}
+
+// Find a user by username (returns user or null)
+function findUser(username) {
+    if (!username) return null;
+    return getUsers().find(u => u.username === username);
+}
+
+// Set the current logged in username
+function setCurrentUser(username) {
+    localStorage.setItem('gw_currentUser', username);
+}
+
+// Get the current logged in username (or null)
+function getCurrentUser() {
+    return localStorage.getItem('gw_currentUser');
+}
+
+// Check if the user is logged in or not
+function isLoggedIn() {
+    return !!getCurrentUser();
+}
+
+// Update header navigation (Home, Login, Profile)
+function updateNav() {
+    const nav = document.querySelector('.nav-links');
+    if (!nav) return;
+
+    if (isLoggedIn()) {
+        nav.innerHTML = `
+            <a href="index.html">Home</a>
+            <a href="profile.html" id="nav-profile">Profile</a>
+        `;
+    } else {
+        nav.innerHTML = `
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+        `;
+    }
+}
+
+// Initialize header navigation when the page is ready
+document.addEventListener('DOMContentLoaded', function () {
+    try { updateNav(); } catch (e) { /* ignore */ }
+});
