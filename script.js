@@ -82,7 +82,7 @@ function showProgram(level) {
 // Navigate to programs if logged in, otherwise needs log in
 function goToPrograms() {
     if (isLoggedIn()) {
-        window.location.href = 'trainingprograms.html';
+        window.location.href = 'trainingpro.html';
     } else {
         alert('Please login to view programs!');
         window.location.href = 'login.html';
