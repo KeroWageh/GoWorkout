@@ -148,7 +148,7 @@ function login(event) {
 
     setCurrentUser(username);
     alert('Login successful!');
-    window.location.href = 'trainingprograms.html';
+    window.location.href = 'trainingpro.html';
 }
 
 // Signup with first name, second name, username, password
