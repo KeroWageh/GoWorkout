@@ -105,7 +105,7 @@ function calculateCalories() {
 
     // Positive number validation
     if (isNaN(weight) || isNaN(height) || isNaN(age) || weight <= 0 || height <= 0 || age <= 0) {
-        alert('Please enter positive numbers for weight, height and age');
+        alert('Please enter positive numbers for weight, height and age!');
         return;
     }
 
@@ -162,8 +162,8 @@ async function signup(event) {
     }
 
     // Enforce minimum and maximum password length for security
-    if (data.password.length >= 6 || data.password.length <= 20) {
-        alert('Password must be from 6 to 20 characters!');
+    if (data.password.length < 6 || data.password.length > 10) {
+        alert('Password must be from 6 to 10 characters!');
         return;
     }
 
