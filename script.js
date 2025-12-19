@@ -82,7 +82,7 @@ function showProgram(level) {
 // Navigate to programs if logged in, otherwise needs log in
 function goToPrograms() {
     if (isLoggedIn()) {
-        window.location.href = 'trainingprograms.html';
+        window.location.href = 'trainingpro.html';
     } else {
         alert('Please login to view programs!');
         window.location.href = 'login.html';
@@ -148,7 +148,7 @@ function login(event) {
 
     setCurrentUser(username);
     alert('Login successful!');
-    window.location.href = 'trainingprograms.html';
+    window.location.href = 'trainingpro.html';
 }
 
 // Signup with first name, second name, username, password
@@ -273,7 +273,13 @@ function updateNav() {
     }
 }
 
-// Initialize header navigation when the page is ready
-document.addEventListener('DOMContentLoaded', function () {
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', function () {
     try { updateNav(); } catch (e) { /* ignore */ }
-});
+  });
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { showProgram, calculateCalories, programs };
+}
+
