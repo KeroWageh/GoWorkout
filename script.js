@@ -97,12 +97,6 @@ function calculateCalories() {
     const gender = document.getElementById('gender').value;
     const goal = document.getElementById('goal').value;
 
-    // Basic check
-    if (!weight || !height || !age) {
-        alert('Please fill in all fields!');
-        return;
-    }
-
     // Positive number validation
     if (isNaN(weight) || isNaN(height) || isNaN(age) || weight <= 0 || height <= 0 || age <= 0) {
         alert('Please enter positive numbers for weight, height and age!');
@@ -126,12 +120,12 @@ function calculateCalories() {
 
 // Set the current logged in username
 function setCurrentUser(username) {
-    localStorage.setItem('gw_currentUser', username);
+    sessionStorage.setItem('gw_currentUser', username);
 }
 
 // Get the current logged in username
 function getCurrentUser() {
-    return localStorage.getItem('gw_currentUser');
+    return sessionStorage.getItem('gw_currentUser');
 }
 
 // Check if the user is logged in or not
@@ -141,7 +135,7 @@ function isLoggedIn() {
 
 // Clear current session and go home
 function logout() {
-    localStorage.removeItem('gw_currentUser');
+    sessionStorage.removeItem('gw_currentUser');
     window.location.href = 'index.html';
 }
 
