@@ -45,11 +45,37 @@ app.post("/signup", (req, res) => {
     });
 });
 
+// Login route
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
 
+    if (!username || !password) {
+        return res.status(400).json({ message: "Please provide username and password!" });
+    }
 
+    // Query the user in MySQL
+    const sql = "SELECT * FROM users WHERE username = ?";
+    db.execute(sql, [username], (err, results) => {
+        if (err) {
+            console.error("Login error:", err);
+            return res.status(500).json({ message: err.sqlMessage || "Login failed!" });
+        }
 
+        if (results.length === 0) {
+            return res.status(404).json({ message: "No account found with that username!" });
+        }
 
+        const user = results[0];
 
+        // Compare text password
+        if (user.password !== password) {
+            return res.status(401).json({ message: "Invalid username or password!" });
+        }
+
+        // Success
+        res.json({ username: user.username, firstName: user.firstName, secondName: user.secondName });
+    });
+});
 
 // Start server
 app.listen(3000, () => {
