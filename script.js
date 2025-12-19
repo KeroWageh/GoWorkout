@@ -213,6 +213,9 @@ function logout() {
     window.location.href = 'index.html';
 }
 
+// Minimal escape helper (no-op for local storage flow)
+function escapeHtml(str) { return String(str); }
+
 // Save the array of users to localStorage
 function saveUsers(users) {
     localStorage.setItem('gw_users', JSON.stringify(users));
