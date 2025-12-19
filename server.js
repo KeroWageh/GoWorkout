@@ -77,6 +77,25 @@ app.post("/login", (req, res) => {
     });
 });
 
+// Get user profile
+app.get("/user/:username", (req, res) => {
+    const username = req.params.username;
+
+    const sql = "SELECT firstName, secondName, username FROM users WHERE username = ?";
+    db.execute(sql, [username], (err, results) => {
+        if (err) {
+            console.error("Get user error:", err);
+            return res.status(500).json({ message: err.sqlMessage || "Unable to load profile!" });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: "User not found!" });
+        }
+
+        res.json(results[0]);
+    });
+});
+
 // Start server
 app.listen(3000, () => {
     console.log("Server running at http://localhost:3000 ✅");
