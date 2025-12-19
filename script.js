@@ -270,7 +270,13 @@ function updateNav() {
     }
 }
 
-// Initialize header navigation when the page is ready
-document.addEventListener('DOMContentLoaded', function () {
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', function () {
     try { updateNav(); } catch (e) { /* ignore */ }
-});
+  });
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { showProgram, calculateCalories, programs };
+}
+
