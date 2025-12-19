@@ -1,4 +1,4 @@
-// Program details in the Training Programs page
+// Program details in the training programs page
 const programs = {
     beginner: {
         name: "Beginner Program:",
@@ -65,7 +65,7 @@ const programs = {
     }
 };
 
-// how it will Show the program details
+// How it will show the program details
 function showProgram(level) {
     const program = programs[level];
     if (!program) return;
@@ -82,7 +82,7 @@ function showProgram(level) {
 // Navigate to programs if logged in, otherwise needs log in
 function goToPrograms() {
     if (isLoggedIn()) {
-        window.location.href = 'trainingprograms.html';
+        window.location.href = 'trainingpro.html';
     } else {
         alert('Please login to view programs!');
         window.location.href = 'login.html';
@@ -97,15 +97,9 @@ function calculateCalories() {
     const gender = document.getElementById('gender').value;
     const goal = document.getElementById('goal').value;
 
-    // Basic check
-    if (!weight || !height || !age) {
-        alert('Please fill in all fields!');
-        return;
-    }
-
     // Positive number validation
     if (isNaN(weight) || isNaN(height) || isNaN(age) || weight <= 0 || height <= 0 || age <= 0) {
-        alert('Please enter positive numbers for weight, height and age');
+        alert('Please enter positive numbers for weight, height and age!');
         return;
     }
 
@@ -124,124 +118,146 @@ function calculateCalories() {
     result.innerHTML = `Your daily calorie target: ${Math.round(calories)} calories`;
 }
 
-// Login with username + password
-function login(event) {
-    event.preventDefault();
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-
-    if (!username || !password) {
-        alert('Please fill in all fields!');
-        return;
-    }
-
-    const user = findUser(username);
-    if (!user) {
-        alert('No account found with that username! Please sign up first.');
-        return;
-    }
-
-    if (user.password !== password) {
-        alert('Invalid username or password.');
-        return;
-    }
-
-    setCurrentUser(username);
-    alert('Login successful!');
-    window.location.href = 'trainingprograms.html';
-}
-
-// Signup with first name, second name, username, password
-function signup(event) {
-    event.preventDefault();
-    const firstName = document.getElementById('firstName').value.trim();
-    const secondName = document.getElementById('secondName').value.trim();
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-
-    if (!firstName || !secondName || !username || !password) {
-        alert('Please fill in all fields!');
-        return;
-    }
-
-    // Enforce minimum password length of 6 characters
-    if (password.length < 6) {
-        alert('Password must be at least 6 characters.');
-        return;
-    }
-
-    if (findUser(username)) {
-        alert('Username already exists! Please choose another username.');
-        return;
-    }
-
-    addUser({ firstName, secondName, username, password });
-    alert('Sign up successful! Please log in with your username.');
-    window.location.href = 'login.html';
-}
-
-// Initialize profile page with user details
-function initProfile() {
-    const current = getCurrentUser();
-    if (!current) {
-        alert('You must be logged in to view your profile!');
-        window.location.href = 'login.html';
-        return;
-    }
-    const user = findUser(current);
-    if (!user) {
-        alert('User not found!');
-        window.location.href = 'login.html';
-        return;
-    }
-
-    const info = document.getElementById('profileInfo');
-    if (info) {
-        info.innerHTML = `
-            <p><strong>First Name:</strong> ${user.firstName}</p>
-            <p><strong>Second Name:</strong> ${user.secondName}</p>
-            <p><strong>Username:</strong> ${user.username}</p>
-        `;
-    }
-
-    updateNav();
-}
-
-// Save the array of users to localStorage
-function saveUsers(users) {
-    localStorage.setItem('gw_users', JSON.stringify(users));
-}
-
-// Retrieve the array of users from localStorage
-function getUsers() {
-    const data = localStorage.getItem('gw_users');
-    return data ? JSON.parse(data) : [];
-}
-
-// Add a new user and save to the list
-function addUser(user) {
-    const users = getUsers();
-    users.push(user);
-    saveUsers(users);
-}
-
-// Find a user by username (returns user or null)
-function findUser(username) {
-    if (!username) return null;
-    return getUsers().find(u => u.username === username);
-}
-
 // Set the current logged in username
 function setCurrentUser(username) {
-    localStorage.setItem('gw_currentUser', username);
+    sessionStorage.setItem('gw_currentUser', username);
 }
 
-// Get the current logged in username (or null)
+// Get the current logged in username
 function getCurrentUser() {
-    return localStorage.getItem('gw_currentUser');
+    return sessionStorage.getItem('gw_currentUser');
 }
 
 // Check if the user is logged in or not
 function isLoggedIn() {
     return !!getCurrentUser();
+}
+
+// Clear current session and go home
+function logout() {
+    sessionStorage.removeItem('gw_currentUser');
+    window.location.href = 'index.html';
+}
+
+// Signup with first name, second name, username, password
+async function signup(event) {
+    event.preventDefault();
+
+    const data = {
+        firstName: document.getElementById("firstName").value.trim(),
+        secondName: document.getElementById("secondName").value.trim(),
+        username: document.getElementById("username").value.trim(),
+        password: document.getElementById("password").value
+    };
+
+    if (!data.firstName || !data.secondName || !data.username || !data.password) {
+        alert("Please fill in all fields!");
+        return;
+    }
+
+    // Enforce minimum and maximum password length for security
+    if (data.password.length < 6 || data.password.length > 10) {
+        alert('Password must be from 6 to 10 characters!');
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:3000/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        alert(result.message);
+
+        if (res.ok) {
+            window.location.href = "login.html";
+        }
+    } catch (err) {
+        alert("Server error. Please try again.");
+    }
+}
+
+// Login with username + password
+async function login(event) {
+    event.preventDefault();
+
+    const data = {
+        username: document.getElementById("username").value.trim(),
+        password: document.getElementById("password").value
+    };
+
+    if (!data.username || !data.password) {
+        alert("Please fill in all fields!");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            alert(result.message);
+            return;
+        }
+
+        setCurrentUser(result.username);
+        alert("Login successful!");
+        window.location.href = "trainingpro.html";
+
+    } catch (err) {
+        alert("Server error. Please try again.");
+    }
+}
+
+// Initialize profile page with user details
+async function initProfile() {
+    const username = getCurrentUser();
+    if (!username) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const res = await fetch(`http://localhost:3000/user/${username}`);
+        const user = await res.json();
+
+        const info = document.getElementById("profileInfo");
+        info.innerHTML = `
+            <p><strong>First Name:</strong> ${user.firstName}</p>
+            <p><strong>Second Name:</strong> ${user.secondName}</p>
+            <p><strong>Username:</strong> ${user.username}</p>
+        `;
+    } catch {
+        alert("Unable to load profile");
+    }
+}
+
+// Header navigation (Home, Login, Profile)
+function updateNav() {
+    const nav = document.querySelector('.nav-links');
+    if (!nav) return;
+
+    nav.innerHTML = isLoggedIn()
+        ? `<a href="index.html">Home</a>
+           <a href="profile.html">Profile</a>`
+        : `<a href="index.html">Home</a>
+           <a href="login.html">Login</a>`;
+}
+
+// Initialize header navigation when the page is ready
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', function () {
+    try { updateNav(); } catch (e) { /* ignore */ }
+  });
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { showProgram, calculateCalories, programs };
 }
